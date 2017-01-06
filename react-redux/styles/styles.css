@@ -1,0 +1,24 @@
+#app{
+font:14px 'Helventica Neue', Helventica, Arial, sans-serif;
+color:#4d4d4d;
+min-width: 550px;
+max-width: 850px;
+margin: 0 auto;
+}
+
+a.active{
+color: orange;
+}
+
+nav{
+  padding-top: 20px;
+}
+
+div.courseList{
+  overflow-y:hidden;
+  padding-right: 15px;
+}
+
+div.courseList:hover{
+  overflow-y:auto;
+}

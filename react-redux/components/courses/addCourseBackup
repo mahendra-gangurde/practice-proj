@@ -1,0 +1,73 @@
+import React, { Component, PropTypes } from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as courseActions from '../../actions/courseAction';
+
+class ManageCoursePage extends React.Component {
+ constructor(props,context) {
+ super(props,context);
+
+ this.state={
+   course:{title:''}
+ };
+
+ console.log(this.state.course);
+ this.onTitleChange=this.onTitleChange.bind(this);
+ this.onClickSave=this.onClickSave.bind(this);
+ }
+
+ onTitleChange(event){
+   const course=this.state.course;
+   let title=event.target.value;
+   course.title=title.toUpperCase();
+   this.setState({
+     course: course
+   });
+ }
+
+ onClickSave(){
+   //alert(`Saving ${this.state.course.title}`);
+   if(this.state.course.title!==''){
+     this.props.courseActions.createCourse(this.state.course);
+     this.setState({
+       course: {title:''}
+     });
+   }
+ }
+
+ createRow(course,index){
+    return(<div key={index}>{course.title} </div>);
+ }
+
+ render() {
+
+     return (
+       <div className="">
+       <h2>Add course</h2>
+       <input type="text" onChange={this.onTitleChange} value={this.state.course.title} placeholder="Course Name"/>
+       <input type="submit" value="Save" onClick={this.onClickSave} />
+       {this.props.courses.map(this.createRow)}
+       </div>
+     );
+   }
+ }
+
+ ManageCoursePage.propTypes = {
+   courseActions:PropTypes.object.isRequired,
+   courses:PropTypes.array.isRequired
+ };
+
+ function mapStateToProps(state,ownProps){
+   console.log( ownProps);
+     return {
+     courses:state.courses
+     };
+   }
+
+ function mapDispatchToProps(dispatch){
+   return{
+      courseActions:bindActionCreators(courseActions,dispatch)
+  };
+ }
+
+export default connect(mapStateToProps,mapDispatchToProps)(ManageCoursePage);
