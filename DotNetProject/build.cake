@@ -8,7 +8,7 @@ Task("Publish")
     .Description("Publish the website to a package at " + packageDir)
     .Does(() =>
 { 
-	RunTarget("BuildRelease");
+	RunTarget("BuildRelease")
 });
 
 Task("BuildRelease")  
